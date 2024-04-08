@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+
+process.stdin.resume();
+process.stdin.setEncoding("utf-8");
+
+let inputString = "";
+let currentLine = 0;
+
+process.stdin.on("data", inputStdin => {
+
+    inputString += inputStdin;
+    inputString = inputString.trim().split("\n").map(string => {
+        return string.trim();
+    });
+    main();
+    process.exit();
+});
+
+function readLine() {
+    return inputString[currentLine++];
+}
+
+function main() {
+    const n = parseInt(readLine());
+    const arr = [];
+    for (let i = 0; i < n; i++) {
+        arr[i] = parseInt(readLine());
+    }
+    const k = parseInt(readLine());
+    const subArray = smallestSubarrayWithSumEqualsK(arr, k);
+    if (Array.isArray(subArray) && subArray.length) {
+
+        for (let ele of subArray) {
+
+            if (!ele || !Array.isArray(ele)) {
+                console.log(null);
+            } else {
+                if (ele.length) {
+                    console.log(ele.join(" "));
+                } else {
+                    console.log(null);
+                }
+            }
+        }
+    }
+    else {
+        console.log(null);
+    }
+
+}
+
+/**
+ * DO NOT MODIFY OR DELETE ABOVE CODE
+ */
+
+/** 
+ * Write your custome code in function smallestSubarrayWithSumEqualsK
+ * where input is array of element.
+ * goal is integer value
+ * This Function should be return array of subArrays.
+ */
+function smallestSubarrayWithSumEqualsK(input, goal) {
+//    Write your code here
+
+    let sum = 0;
+    let temp = [];
+    let smallest = [];
+    let output = [];
+    
+    for(let i = 0; i<input.length; i++){
+        for(let j = 0; j<input.length; j++){
+            let arr = input[i] + input[j]
+            sum = sum + arr;
+            if(arr == goal){
+                temp = [input[i], input[j]]
+                console.log(temp)
+                smallest.push(temp);
+            }
+            if(input[i] ==  goal){
+                if(arr !== input[i]){
+                temp = [input[i]]
+                }
+                console.log(temp);
+                smallest.push(temp);
+
+
+            }
+            sum = 0;
+        }
+    }
+
+    for (let i = 0; i<smallest.length; i++){
+        let min = smallest[i][0];
+        for(let j = 0; j<smallest[i].length; j++){
+            if(smallest[i][j]<min){
+                min = smallest[i][j];
+                smallest.push(output);
+            }
+        }
+        
+    console.log(output)
+    }
+
+}
+    </script>
+</body>
+</html>
